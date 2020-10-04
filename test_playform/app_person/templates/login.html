@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>this is login page</title>
+</head>
+<body>
+    <!--登录的执行动作login_action，同时需要添加login_action函数-->
+    <form action="login" method="post">
+        <p>账号: <input type="text" name="username"/></p>
+        <p>密码: <input type="password" name="password"/></p>
+        <!-- error是Django模板中自带-->
+        {{error}}<br>
+        <!--用于解决登录时CSRF跨域请求问题-->
+        {% csrf_token %}
+        <input type="submit" value="提交"/>
+    </form>
+</body>
+</html>

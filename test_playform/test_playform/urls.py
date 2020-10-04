@@ -20,4 +20,6 @@ from app_person import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/',views.hello),
+    path('login',views.login),  # 默认的登录页面
+    path('manage',views.manage)
 ]
