@@ -1,28 +1,32 @@
 <html>
 <head>
-    <title>this is login page</title>
-    <link href='https://htmlstream.com/preview/space-v1.6.1/assets/css/theme.css' rel='stylesheet' type='text/css'
-          media='all'/>
+    {% load static %}
+    <link href='{% static "/css/theme.css" %}' rel='stylesheet' type='text/css' />
+    <!--<link href='https://htmlstream.com/preview/space-v1.6.1/assets/css/theme.css' rel='stylesheet' type='text/css' />-->
 </head>
 <body>
 <main id="content">
     <!-- Hero Section -->
+    {% load static %}
     <div class="gradient-overlay-half-dark-v3 bg-img-hero"
-         style="background-image:url(./img4.jpg)">
+         style="background-image:url({% static '/img/img4.jpg' %});
+    margin-bottom:0px;
+    width: 100%;
+    height:100%;">
         <!-- Main Content -->
         <!--通过style重新设置背景颜色，不使用theme.css模板中的d-lg-flex align-items-lg-center height-85vh颜色--lg-->
-        <div class="d-lg-flex align-items-lg-center height-85vh--lg" style="background-color:#21c87a">
+        <div class="d-lg-flex align-items-lg-center height-85vh--lg">
             <div class="container space-2 space-0--lg mt-lg-8">
                 <div class="row justify-content-lg-between align-items-lg-center">
                     <div class="col-lg-5 mb-7 mb-lg-0">
                         <!-- Title -->
+                        <span class="d-block text-white text-uppercase mb-2">@www.itstoneit.com</span>
                         <h1 class="display-4 font-size-48--md-down text-white mb-0">Interface Automation Test Platform
-                            Development
-                        </h1>
+                            Development</h1>
                         <!-- End Title -->
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-5" style="padding-left: 40px;padding-right: 15px;">
                         <!-- Signup Form -->
                         <div class="bg-white shadow-sm rounded p-6">
                             <form class="js-validate" novalidate="novalidate" action="/login/" method="post">
@@ -38,7 +42,6 @@
                                     </div>
                                 </div>
                                 <!-- End Input -->
-
                                 <!-- Input -->
                                 <div class="js-form-message mb-3">
                                     <div class="js-focus-state input-group input-group form">
@@ -49,9 +52,7 @@
                                 </div>
                                 <!-- End Input -->
                                 {{error}}<br>
-                                <button type="submit" class="btn btn-block btn-primary"
-                                        style="border:1px solid #8c98a4;background-color: #8c98a4">登录
-                                </button>
+                                <button type="submit" class="btn btn-block btn-primary">登录</button>
                                 {% csrf_token %}
                             </form>
                         </div>
