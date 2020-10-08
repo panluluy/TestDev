@@ -10,7 +10,7 @@ def hello(requests):
 
 def login(request):
     if request.method=='GET':
-        return render(request,'login.html',{'error':"登录页面"})
+        return render(request,'login.html')
     if request.method=="POST":
         username = request.POST.get("username",'')
         password = request.POST.get('password','')
@@ -31,8 +31,6 @@ def manage(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
-
-
 
 """
 django的处理过程：

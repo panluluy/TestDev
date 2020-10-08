@@ -1,17 +1,67 @@
 <html>
 <head>
     <title>this is login page</title>
+    <link href='https://htmlstream.com/preview/space-v1.6.1/assets/css/theme.css' rel='stylesheet' type='text/css'
+          media='all'/>
 </head>
 <body>
-    <!--/login/：必须这样写，否则后面登录成功后拼接的路径有问题-->
-    <form action="/login/" method="post">
-        <p>账号: <input type="text" name="username"/></p>
-        <p>密码: <input type="password" name="password"/></p>
-        <!-- error是Django模板中自带-->
-        {{error}}<br>
-        <!--用于解决登录时CSRF跨域请求问题-->
-        {% csrf_token %}
-        <input type="submit" value="提交"/>
-    </form>
+<main id="content">
+    <!-- Hero Section -->
+    <div class="gradient-overlay-half-dark-v3 bg-img-hero"
+         style="background-image:url(./img4.jpg)">
+        <!-- Main Content -->
+        <!--通过style重新设置背景颜色，不使用theme.css模板中的d-lg-flex align-items-lg-center height-85vh颜色--lg-->
+        <div class="d-lg-flex align-items-lg-center height-85vh--lg" style="background-color:#21c87a">
+            <div class="container space-2 space-0--lg mt-lg-8">
+                <div class="row justify-content-lg-between align-items-lg-center">
+                    <div class="col-lg-5 mb-7 mb-lg-0">
+                        <!-- Title -->
+                        <h1 class="display-4 font-size-48--md-down text-white mb-0">Interface Automation Test Platform
+                            Development
+                        </h1>
+                        <!-- End Title -->
+                    </div>
+
+                    <div class="col-lg-5">
+                        <!-- Signup Form -->
+                        <div class="bg-white shadow-sm rounded p-6">
+                            <form class="js-validate" novalidate="novalidate" action="/login/" method="post">
+                                <div class="mb-4">
+                                    <h2 class="h4">账号登录</h2>
+                                </div>
+
+                                <!-- Input -->
+                                <div class="js-form-message mb-3">
+                                    <div class="js-focus-state input-group input-group form">
+                                        <input type="text" class="form-control form__input" name="username" required=""
+                                               placeholder="请输入你的用户名" aria-label="Enter your username">
+                                    </div>
+                                </div>
+                                <!-- End Input -->
+
+                                <!-- Input -->
+                                <div class="js-form-message mb-3">
+                                    <div class="js-focus-state input-group input-group form">
+                                        <input type="password" class="form-control form__input" name="password"
+                                               required="" placeholder="请输入你的密码"
+                                               aria-label="Enter your password">
+                                    </div>
+                                </div>
+                                <!-- End Input -->
+                                {{error}}<br>
+                                <button type="submit" class="btn btn-block btn-primary"
+                                        style="border:1px solid #8c98a4;background-color: #8c98a4">登录
+                                </button>
+                                {% csrf_token %}
+                            </form>
+                        </div>
+                        <!-- End Signup Form -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Main Content -->
+    </div>
+</main>
 </body>
 </html>
