@@ -28,6 +28,12 @@ def login(request):
 def manage(request):
     return render(request,'manager.html')
 
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/")
+
+
+
 """
 django的处理过程：
 1.url指定路径:/hello
