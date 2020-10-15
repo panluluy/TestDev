@@ -24,10 +24,8 @@ def login(request):
         else:
             return render(request,'login.html',{"error":"用户名或者密码错误"})
 
-@login_required
-def manage(request):
-    return render(request,'manager.html')
 
+@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")

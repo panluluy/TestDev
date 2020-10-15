@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+# django的ORM
 class Project(models.Model):
     """项目表"""
 

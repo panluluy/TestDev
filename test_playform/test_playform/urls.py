@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_person import views
+from app_person import views as person_views
+from app_manage import views as manage_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/',views.hello),
-    # 登录
-    path("",views.login),
-    path('login/',views.login),
-    path('manage/',views.manage),
-    path('logout/',views.logout),
-
+    path('hello/',person_views.hello),
+    # 账户管理
+    path("",person_views.login),
+    path('login/',person_views.login),
+    path('logout/',person_views.logout),
+    # 项目管理
+    path('manage/',manage_views.manage),
 ]
