@@ -20,7 +20,7 @@ def login(request):
         print("用户是否存在",user)
         if user is not None:
             auth.login(request,user)
-            return HttpResponseRedirect("/manage")
+            return HttpResponseRedirect("/project")
         else:
             return render(request,'login.html',{"error":"用户名或者密码错误"})
 
