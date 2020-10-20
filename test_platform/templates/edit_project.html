@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div style="margin-left: 30px;margin-right: 30px;width: 60%">
-                        <form action="/project/add" method="post">
+                        <form action="/project/edit/{{id}}/" method="post">
                             <label >名称:</label>
                             {{form.name}}<br>
                             <label for="id_describe">描述:</label>
@@ -25,5 +25,37 @@
                 </div>
         </div>
     </div>
+<style>
+    input[name='name']{
+    display: block;
+    width: 100%;
+    height: calc(1.8125rem + 2px);
+    padding: .25rem .7rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .2rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+    textarea[name='describe']{
+    display: block;
+    width: 100%;
+    padding: .25rem .7rem;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .2rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+</style>
 {% endblock %}
 <!-- edit_project.html继承manager.html页面 -->

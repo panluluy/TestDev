@@ -26,7 +26,17 @@ def add_project(request):
 def edit_project(request,pid):
     print('pid:',pid)
     if request.method == 'POST':
-        pass
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            describe = form.cleaned_data['describe']
+            status = form.cleaned_data['status']
+            p = Project.objects.get(id=pid)
+            p.name = name
+            p.describe = describe
+            p.status = status
+            p.save()
+        return HttpResponseRedirect('/project/')
     else:
         if pid:
             p = Project.objects.get(id=pid)
@@ -34,4 +44,4 @@ def edit_project(request,pid):
             form = ProjectEditForm(instance=p)
         else:
             form = ProjectForm()
-        return render(request,'edit_project.html',{'form':form})
+        return render(request,'edit_project.html',{'form':form,'id':pid})
