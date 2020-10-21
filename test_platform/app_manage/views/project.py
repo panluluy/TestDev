@@ -8,7 +8,7 @@ from app_manage.forms import ProjectForm,ProjectEditForm
 @login_required
 def manage(request):
     project_list = Project.objects.all()
-    return render(request,'project_list.html',{'projects':project_list})
+    return render(request,'project/list.html',{'projects':project_list})
 
 def add_project(request):
     if request.method == 'POST':
@@ -18,10 +18,10 @@ def add_project(request):
             describe = form.cleaned_data['describe']
             status = form.cleaned_data['status']
             Project.objects.create(name=name,describe=describe,status=status)
-        return HttpResponseRedirect('/project')
+        return HttpResponseRedirect('/project/manage')
     else:
         form = ProjectForm()
-    return render(request, 'add_project.html',{'form':form})
+    return render(request, 'project/add.html',{'form':form})
 
 def edit_project(request,pid):
     print('pid:',pid)
@@ -36,7 +36,7 @@ def edit_project(request,pid):
             p.describe = describe
             p.status = status
             p.save()
-        return HttpResponseRedirect('/project/')
+        return HttpResponseRedirect('/project/manage')
     else:
         if pid:
             p = Project.objects.get(id=pid)
@@ -44,12 +44,12 @@ def edit_project(request,pid):
             form = ProjectEditForm(instance=p)
         else:
             form = ProjectForm()
-        return render(request,'edit_project.html',{'form':form,'id':pid})
+        return render(request,'project/edit.html',{'form':form,'id':pid})
 
 def delete_project(request,pid):
     if request.method == 'GET':
         p = Project.objects.get(id=pid)
         p.delete()
-        return HttpResponseRedirect('/project/')
+        return HttpResponseRedirect('/project/manage')
     else:
-        return HttpResponseRedirect('/project/')
+        return HttpResponseRedirect('/project/manage')

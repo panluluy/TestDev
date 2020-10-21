@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 from app_person import views as person_views
 from app_manage import views as manage_views
+from app_manage.views import project
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +27,6 @@ urlpatterns = [
     path('login/',person_views.login),
     path('logout/',person_views.logout),
     # 项目管理
-    path('manage/',manage_views.manage),
+    path('manage/',project.manage),
     path('project/',include('app_manage.urls')),
 ]
