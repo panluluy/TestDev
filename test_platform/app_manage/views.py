@@ -45,3 +45,11 @@ def edit_project(request,pid):
         else:
             form = ProjectForm()
         return render(request,'edit_project.html',{'form':form,'id':pid})
+
+def delete_project(request,pid):
+    if request.method == 'GET':
+        p = Project.objects.get(id=pid)
+        p.delete()
+        return HttpResponseRedirect('/project/')
+    else:
+        return HttpResponseRedirect('/project/')
