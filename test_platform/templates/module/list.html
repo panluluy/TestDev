@@ -1,0 +1,92 @@
+{% extends 'manager.html' %}
+{% block manager %}
+<div class="col-12 col-lg-12 d-flex">
+    <div class="card flex-fill">
+        <div class="card-header">
+            <script>
+                function add()
+                {
+                    // window.open("/project/add");
+                    window.location.href = '/project/add';
+                }
+            </script>
+            <h5 class="card-title mb-0" style="float:left">模块管理</h5>
+            <button type="button" onclick="add()" class="btn btn-primary" style="float:right">创建</button>
+        </div>
+        <div id="datatables-dashboard-products_wrapper"
+             class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="datatables-dashboard-products"
+                           class="table table-striped my-0 dataTable no-footer" role="grid"
+                           aria-describedby="datatables-dashboard-products_info"
+                           style="
+                    width: 100%;
+                    height: 100%;
+                    ">
+                        <thead>
+                        <tr role="row">
+                            <th>ID</th>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>项目</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for m in modules %}
+                        <tr role="row" class="odd">
+                            <td class="sorting_1">{{m.id}}</td>
+                            <td><span class="badge badge-danger">{{m.name}}</span></td>
+                            <td class="d-none d-xl-table-cell">{{m.describe}}</td>
+                            <td class="d-none d-xl-table-cell">{{m.project}}</td>
+                            <td class="d-none d-xl-table-cell">{{m.create_time}}</td>
+                            <td>
+                                <a href="/project/edit/{{p.id}}">编辑</a>
+                                <a href="/project/delete/{{p.id}}">删除</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="dataTables_info" id="datatables-dashboard-products_info"
+                         role="status" aria-live="polite">Showing 1 to 6 of 9 entries
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-7">
+                    <div class="dataTables_paginate paging_simple_numbers"
+                         id="datatables-dashboard-products_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button page-item previous disabled"
+                                id="datatables-dashboard-products_previous"><a href="#"
+                                                                               aria-controls="datatables-dashboard-products"
+                                                                               data-dt-idx="0"
+                                                                               tabindex="0"
+                                                                               class="page-link">Previous</a>
+                            </li>
+                            <li class="paginate_button page-item active"><a href="#"
+                                                                            aria-controls="datatables-dashboard-products"
+                                                                            data-dt-idx="1"
+                                                                            tabindex="0"
+                                                                            class="page-link">1</a>
+                            </li>
+                            <li class="paginate_button page-item "><a href="#"
+                                                                      aria-controls="datatables-dashboard-products"
+                                                                      data-dt-idx="2" tabindex="0"
+                                                                      class="page-link">2</a></li>
+                            <li class="paginate_button page-item next"
+                                id="datatables-dashboard-products_next"><a href="#"
+                                                                           class="page-link">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
