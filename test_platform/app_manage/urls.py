@@ -4,11 +4,12 @@ from app_manage.views import module
 
 urlpatterns = [
     # 项目管理
-    path('manage',project.manage),
-    # 项目创建
-    path('add',project.add_project),
-    path('edit/<int:pid>/',project.edit_project),
-    path('delete/<int:pid>/',project.delete_project),
+    path('',project.manage),
+    path('project_list/',project.manage),
+    path('project_add/',project.add_project),
+    path('project_edit/<int:pid>/',project.edit_project),
+    path('project_delete/<int:pid>/',project.delete_project),
     # 模块管理
-    path('module_manage/',module.list_module),
+    path('module_list/',module.list_module),
+    path('module_add/',module.add_module),
 ]

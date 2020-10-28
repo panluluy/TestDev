@@ -19,4 +19,6 @@ class Module(models.Model):
     describe = models.TextField('描述',default='')
     update_time = models.DateTimeField('更新时间',auto_now=True)
     create_time = models.DateTimeField('创建时间',auto_now_add=True)
+
+
     

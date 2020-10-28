@@ -3,14 +3,14 @@
 <div class="col-12 col-lg-12 d-flex">
     <div class="card flex-fill">
         <div class="card-header">
-            <h5 class="card-title mb-0" style="float:left">项目添加</h5>
+            <h5 class="card-title mb-0" style="float:left">模块添加</h5>
         </div>
         <div id="datatables-dashboard-products_wrapper"
              class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
                     <div style="margin-left: 30px;margin-right: 30px;width: 60%">
-                        <form action="/manage/project_add/" method="post" >
+                        <form action="/manage/module_add/" method="post" >
                             {% csrf_token %}
                             {{ form }}
                             <br>
@@ -21,4 +21,3 @@
         </div>
     </div>
 {% endblock %}
-<!-- add_project.html继承manager.html页面 -->
