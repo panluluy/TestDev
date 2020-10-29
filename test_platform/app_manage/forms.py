@@ -26,3 +26,9 @@ class ModuleForm(forms.ModelForm):
     class Meta:
         model = Module
         fields = ['project','name','describe']
+
+class ModuleEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Module
+        fields = ['project','name','describe']

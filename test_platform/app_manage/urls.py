@@ -12,4 +12,6 @@ urlpatterns = [
     # 模块管理
     path('module_list/',module.list_module),
     path('module_add/',module.add_module),
+    path('module_edit/<int:pid>/',module.edit_module),
+    path('module_delete/<int:pid>/',module.delete_module),
 ]
