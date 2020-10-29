@@ -7,8 +7,11 @@ from app_manage.forms import ProjectForm,ProjectEditForm
 # Create your views here.
 @login_required
 def manage(request):
+    # 获取登录成功后返回的cookie
+    username = request.COOKIES.set("user")
     project_list = Project.objects.all()
-    return render(request,'project/list.html',{'projects':project_list})
+    # 返回用户名
+    return render(request,'project/list.html',{'projects':project_list,'user':username})
 
 def add_project(request):
     if request.method == 'POST':

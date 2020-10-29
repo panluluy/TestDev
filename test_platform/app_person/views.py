@@ -20,7 +20,10 @@ def login(request):
         print("用户是否存在",user)
         if user is not None:
             auth.login(request,user)
-            return HttpResponseRedirect("/manage/")
+            # 登录成功后设置cookie，返回用户名和有效期
+            response = HttpResponseRedirect('/manage')
+            response.set_cookie("user",username,1800)
+            return response
         else:
             return render(request,'login.html',{"error":"用户名或者密码错误"})
 
