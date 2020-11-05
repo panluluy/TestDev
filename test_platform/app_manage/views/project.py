@@ -8,7 +8,7 @@ from app_manage.forms import ProjectForm,ProjectEditForm
 @login_required
 def manage(request):
     # 获取登录成功后返回的cookie
-    username = request.COOKIES.set("user")
+    username = request.COOKIES.get('user')
     project_list = Project.objects.all()
     # 返回用户名
     return render(request,'project/list.html',{'projects':project_list,'user':username})
