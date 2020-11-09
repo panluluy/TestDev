@@ -17,7 +17,10 @@ def send_req(request):
         par_type = request.GET.get("par_type")
         par_value = request.GET.get("par_value")
 
-        header = json.loads(header)
+        try:
+            header = json.loads(header)
+        except json.decoder.JSONDecodeError:
+            return JsonResponse({"status":400,"message":"请求头参数填写有误"})
         print('header',header,type(header))
 
         if method == "get":

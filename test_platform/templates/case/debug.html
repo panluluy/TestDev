@@ -81,12 +81,14 @@
 <script type="text/javascript">
 
     function sendFun() {
+        // 获取用例管理界面中每个部分的值
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
         req_header = $('#header').val();
         req_type = $('input[name="par_type"]:checked').val();
         req_parameter = $('#parameter').val();
-
+        
+        // 此种方法用户点击发送按钮后，继续保留页面中的数据
         $.get("/case/send_req/",{
             url:req_url,
             method:req_method,
@@ -94,9 +96,15 @@
             par_type:req_type,
             par_value:req_parameter
         },
-        function (data,status) {
-            console.log("status",status);
-            console.log("data",data);
+        // 将接口返回的数据写入到返回结果文本框
+        function(resp){
+            console.log("resp",resp);
+            if(resp.status == 200){
+                document.querySelector("#result").value = resp.data;
+            }else{
+                window.alert(resp.message);
+            }
+
         });
     }
 </script>
