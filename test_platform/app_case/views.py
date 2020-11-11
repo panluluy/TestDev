@@ -21,14 +21,9 @@ def send_req(request):
             header = json.loads(header)
         except json.decoder.JSONDecodeError:
             return JsonResponse({"status":400,"message":"请求头参数填写有误"})
-        # print('header',header,type(header))
-        # print("url",url,type(url))
-        # print("method", method, type(method))
-        try:
-            par_value = json.loads(par_value)
-        except json.decoder.JSONDecodeError:
-            return JsonResponse({"status":400,"message":"json参数必须使用双引号"})
-        print("par_value",par_value,type(par_value))
+        print('header',header,type(header))
+        print("url",url,type(url))
+        print("method", method, type(method))
 
         if method == "get":
             r = requests.get(url,params=par_value,headers=header)
@@ -37,6 +32,11 @@ def send_req(request):
             if par_type == "form":
                 r = requests.post(url,data=par_value,headers=header)
             if par_type == "json":
+                try:
+                    par_value = json.loads(par_value)
+                except json.decoder.JSONDecodeError:
+                    return JsonResponse({"status": 400, "message": "json参数必须使用双引号"})
+                print("par_value", par_value, type(par_value))
                 r = requests.post(url,json=par_value,headers=header)
 
     return JsonResponse({"status":200,"msg":"success","data":r.text})
