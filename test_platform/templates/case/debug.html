@@ -26,7 +26,7 @@
                         <!-- URL -->
                         <div class="input-group option">
                             <span class="input-group-addon option-tile">请求地址：</span>
-                            <input id="req_url" type="text" class="form-control" value="http">
+                            <input id="req_url" type="text" class="form-control" >
                         </div>
 
                         <!-- 请求方法 -->
@@ -43,7 +43,7 @@
                         <!-- 请求头 -->
                         <div class="input-group option">
                             <span class="input-group-addon option-tile">请求头部：</span>
-                            <input id="header" type="text" class="form-control" value="{}">
+                            <input id="header" type="text" class="form-control" >
                         </div>
 
                         <div style="margin-top: 10px;">
@@ -58,7 +58,7 @@
 
                         <div class="input-group option">
                             <span class="input-group-addon option-tile">请求参数：</span>
-                            <input id="parameter" type="text" class="form-control" value="{}">
+                            <input id="parameter" type="text" class="form-control" >
                         </div>
 
                         <p>说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
@@ -80,14 +80,41 @@
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
+    //初始化JSONeditor编辑框
+    // var headers = document.getElementById("headerEditor");
+    // var parameters = document.getElementById("parameterEditor");
+    // var options = {
+    //     mode: "code"
+    // };
+    // var headerEditor = new JSONEditor(headers, options);
+    // var parameterEditor = new JSONEditor(parameters, options);
+
     function sendFun() {
         // 获取用例管理界面中每个部分的值
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
         req_header = $('#header').val();
+
+        // 使用在线的json的cdn获取请求头中的值需要更换新的方法
+        // req_header = headerEditor.get(); 
+
         req_type = $('input[name="par_type"]:checked').val();
+
         req_parameter = $('#parameter').val();
-        
+
+        // 使用在线的json的cdn获取请求参数中的值需要更换新的方法
+        // req_parameter = parameterEditor.get(); 
+
+        // 用于将 JavaScript 值转换为 JSON 字符串
+        // let req_header_str = JSON.stringify(req_header, null, 2);
+        // let req_parameter_str = JSON.stringify(req_parameter, null, 2);
+        // console.log("req_par", req_parameter_str);  
+
+        // 前端增加对url为空进行判断
+        if ( req_url === ""){
+            window.alert("URL地址不能为空");
+            return;
+        }
         // 此种方法用户点击发送按钮后，继续保留页面中的数据
         $.get("/case/send_req/",{
             url:req_url,
@@ -99,13 +126,14 @@
         // 将接口返回的数据写入到返回结果文本框
         function(resp){
             console.log("resp",resp);
-            if(resp.status == 200){
+            if(resp.status === 200){
                 document.querySelector("#result").value = resp.data;
             }else{
                 window.alert(resp.message);
             }
-
         });
     }
 </script>
+
+
 {% endblock %}
