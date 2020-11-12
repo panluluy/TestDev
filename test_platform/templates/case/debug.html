@@ -1,17 +1,5 @@
 {% extends 'manager.html' %}
 {% block manager %}
-<style>
-    body {
-    margin: 0;
-    font-family: Nunito,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Arial,sans-serif;
-    font-size: .875rem;
-    font-weight: 400;
-    line-height: 2.5;
-    color: #495057;
-    text-align: left;
-    background-color: #f5f9fc;
-}
-</style>
 <div class="col-12 col-lg-12 d-flex">
     <div class="card flex-fill">
         <div class="card-header">
@@ -40,10 +28,20 @@
                             </label>
                         </div>
 
-                        <!-- 请求头 -->
+                        <!-- 请求头
                         <div class="input-group option">
                             <span class="input-group-addon option-tile">请求头部：</span>
                             <input id="header" type="text" class="form-control" >
+                        </div> -->
+
+                        <!-- 请求头 -->
+                        <div class="input-group">
+                            <span class="input-group-addon option-tile">header</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group">
+                                    <div id="headerEditor" style="width: 100%"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div style="margin-top: 10px;">
@@ -96,12 +94,12 @@
 <script type="text/javascript">
 
     //初始化JSONeditor编辑框，主要用于显示
-    // var headers = document.getElementById("headerEditor");
+    var headers = document.getElementById("headerEditor");
     var parameters = document.getElementById("parameterEditor");
     var options = {
         mode: "code"
     };
-    // var headerEditor = new JSONEditor(headers, options);
+    var headerEditor = new JSONEditor(headers, options);
     var parameterEditor = new JSONEditor(parameters, options);
 
     function sendFun() {
@@ -109,18 +107,16 @@
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
 
-        req_header = $('#header').val();
-        // 使用在线的json的cdn获取请求头中的值需要更换新的方法
-        // req_header = headerEditor.get(); 
+        // 获取请求头中的内容
+        req_header = headerEditor.get(); 
 
         req_type = $('input[name="par_type"]:checked').val();
-        
-        // req_parameter = $('#parameter').val();
-        // 使用在线的json的cdn获取请求参数中的值需要更换新的方法
+
+        // 获取请求参数中的内容
         req_parameter = parameterEditor.get(); 
 
         // 用于将 JavaScript 值转换为 JSON 字符串
-        // let req_header_str = JSON.stringify(req_header, null, 2);
+        let req_header_str = JSON.stringify(req_header, null, 2);
         let req_parameter_str = JSON.stringify(req_parameter, null, 2);
         console.log("req_par", req_parameter_str);  
 
@@ -133,7 +129,7 @@
         $.get("/case/send_req/",{
             url:req_url,
             method:req_method,
-            header:req_header,
+            header:req_header_str,
             par_type:req_type,
             par_value:req_parameter_str
         },
@@ -183,5 +179,4 @@
         font-size: 1rem;
     }
 </style>
-
 {% endblock %}
