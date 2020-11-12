@@ -56,9 +56,19 @@
                             </label>
                         </div>
 
-                        <div class="input-group option">
+                        <!-- <div class="input-group option">
                             <span class="input-group-addon option-tile">请求参数：</span>
                             <input id="parameter" type="text" class="form-control" >
+                        </div> -->
+
+                        <!-- 请求参数 -->
+                        <div class="input-group" style="height: 230px;">
+                            <span class="input-group-addon option-tile">请求参数：</span>
+                            <div class="input-group mb-3">
+                                <div class="input-group">
+                                    <div id="parameterEditor" style="width: 100%"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <p>说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
@@ -78,37 +88,41 @@
     </div>
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.css">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.js"></script>
+<link href="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.js"></script>
 <script type="text/javascript">
 
-    //初始化JSONeditor编辑框
+    //初始化JSONeditor编辑框，主要用于显示
     // var headers = document.getElementById("headerEditor");
-    // var parameters = document.getElementById("parameterEditor");
-    // var options = {
-    //     mode: "code"
-    // };
+    var parameters = document.getElementById("parameterEditor");
+    var options = {
+        mode: "code"
+    };
     // var headerEditor = new JSONEditor(headers, options);
-    // var parameterEditor = new JSONEditor(parameters, options);
+    var parameterEditor = new JSONEditor(parameters, options);
 
     function sendFun() {
         // 获取用例管理界面中每个部分的值
         req_url = $('#req_url').val();
         req_method = $('input[name="req_method"]:checked').val();
-        req_header = $('#header').val();
 
+        req_header = $('#header').val();
         // 使用在线的json的cdn获取请求头中的值需要更换新的方法
         // req_header = headerEditor.get(); 
 
         req_type = $('input[name="par_type"]:checked').val();
-
-        req_parameter = $('#parameter').val();
-
+        
+        // req_parameter = $('#parameter').val();
         // 使用在线的json的cdn获取请求参数中的值需要更换新的方法
-        // req_parameter = parameterEditor.get(); 
+        req_parameter = parameterEditor.get(); 
 
         // 用于将 JavaScript 值转换为 JSON 字符串
         // let req_header_str = JSON.stringify(req_header, null, 2);
-        // let req_parameter_str = JSON.stringify(req_parameter, null, 2);
-        // console.log("req_par", req_parameter_str);  
+        let req_parameter_str = JSON.stringify(req_parameter, null, 2);
+        console.log("req_par", req_parameter_str);  
 
         // 前端增加对url为空进行判断
         if ( req_url === ""){
@@ -121,7 +135,7 @@
             method:req_method,
             header:req_header,
             par_type:req_type,
-            par_value:req_parameter
+            par_value:req_parameter_str
         },
         // 将接口返回的数据写入到返回结果文本框
         function(resp){
@@ -135,5 +149,39 @@
     }
 </script>
 
+<!-- 去掉请求参数的格式 -->
+<style>
+    .option {
+        height: 50px;
+    }
+
+    .option-tile {
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+
+    div.jsoneditor {
+        border: thin solid #ced4da;
+    }
+
+    div.jsoneditor-menu {
+        display: none;
+    }
+
+    .ace-jsoneditor .ace_gutter {
+        background: white;
+    }
+
+    div.jsoneditor-outer.has-main-menu-bar {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+
+    .per-label {
+        margin-right: 10px;
+        margin-bottom: 4px;
+        font-size: 1rem;
+    }
+</style>
 
 {% endblock %}
