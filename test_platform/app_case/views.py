@@ -56,10 +56,14 @@ def assert_result(request):
     """
     断言结果
     """
-    if request.method == "POST":
-        result_text = request.POST.get("result_text", "")
-        assert_text = request.POST.get("assert_text", "")
-        assert_type = request.POST.get("assert_type", "")
+    print(request.method)
+    if request.method == "GET":
+        result_text = request.GET.get("result_text", "")
+        assert_text = request.GET.get("assert_text", "")
+        assert_type = request.GET.get("assert_type", "")
+        # print(result_text)
+        # print(assert_text)
+        # print(assert_type)
 
         if result_text == "" or assert_text == "":
             return JsonResponse({"code": 10101, "message": "断言的参数不能为空"})
