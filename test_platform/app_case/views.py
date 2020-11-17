@@ -24,14 +24,14 @@ def send_req(request):
 
         # 后端增加对url进行校验
         if url == "":
-            return JsonResponse({"status": 400, "message": "URL参数不能为空"})
+            return JsonResponse({"status": 10101, "message": "URL参数不能为空"})
         if header == "":
             pass
         else:
             try:
                 header = json.loads(header)
             except json.decoder.JSONDecodeError:
-                return JsonResponse({"status": 400, "message": "请求头参数填写有误"})
+                return JsonResponse({"status": 10102, "message": "请求头参数填写有误"})
 
         if method == "get":
             r = requests.get(url, params=par_value, headers=header)
@@ -42,12 +42,43 @@ def send_req(request):
             if par_type == "json":
                 # 增加对json数据类型时，请求头不能为空的判断
                 if header == "":
-                    return JsonResponse({"status": 400, "message": "请求头不能为空"})
+                    return JsonResponse({"status": 10101, "message": "请求头不能为空"})
                 try:
                     par_value = json.loads(par_value)
                 except json.decoder.JSONDecodeError:
-                    return JsonResponse({"status": 400, "message": "json参数必须使用双引号"})
+                    return JsonResponse({"status": 10102, "message": "json参数必须使用双引号"})
                 print("par_value", par_value, type(par_value))
                 r = requests.post(url, json=par_value, headers=header)
 
     return JsonResponse({"status": 200, "msg": "success", "data": r.text})
+
+def assert_result(request):
+    """
+    断言结果
+    """
+    if request.method == "POST":
+        result_text = request.POST.get("result_text", "")
+        assert_text = request.POST.get("assert_text", "")
+        assert_type = request.POST.get("assert_type", "")
+
+        if result_text == "" or assert_text == "":
+            return JsonResponse({"code": 10101, "message": "断言的参数不能为空"})
+
+        if assert_type != "include" and assert_type != "equal":
+            return JsonResponse({"code": 10102, "message": "断言的类型错误"})
+
+        if assert_type == "include":
+            if assert_text in result_text:
+                return JsonResponse({"code": 10200, "message": "断言包含成功"})
+            else:
+                return JsonResponse({"code": 10200, "message": "断言包含失败"})
+
+        if assert_type == "equal":
+            if assert_text == result_text:
+                return JsonResponse({"code": 200, "message": "断言相等成功"})
+            else:
+                return JsonResponse({"code": 200, "message": "断言相等失败"})
+
+        return JsonResponse({"code": 10102, "message": "fail"})
+    else:
+        return JsonResponse({"code": 10100, "message": "请求方法错误"})

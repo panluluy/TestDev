@@ -14,7 +14,7 @@
                         <!-- URL -->
                         <div class="input-group option">
                             <span class="input-group-addon option-tile">请求地址：</span>
-                            <input id="req_url" type="text" class="form-control" >
+                            <input id="req_url" type="text" class="form-control">
                         </div>
 
                         <!-- 请求方法 -->
@@ -28,15 +28,9 @@
                             </label>
                         </div>
 
-                        <!-- 请求头
-                        <div class="input-group option">
-                            <span class="input-group-addon option-tile">请求头部：</span>
-                            <input id="header" type="text" class="form-control" >
-                        </div> -->
-
                         <!-- 请求头 -->
                         <div class="input-group">
-                            <span class="input-group-addon option-tile">header</span>
+                            <span class="input-group-addon option-tile">请求头：</span>
                             <div class="input-group mb-3">
                                 <div class="input-group">
                                     <div id="headerEditor" style="width: 100%"></div>
@@ -44,6 +38,7 @@
                             </div>
                         </div>
 
+                        <!--请求类型-->
                         <div style="margin-top: 10px;">
                             <label>参数类型：</label>
                             <label class="radio-inline">
@@ -53,11 +48,6 @@
                                 <input type="radio" name="par_type" id="json" value="json"> JSON
                             </label>
                         </div>
-
-                        <!-- <div class="input-group option">
-                            <span class="input-group-addon option-tile">请求参数：</span>
-                            <input id="parameter" type="text" class="form-control" >
-                        </div> -->
 
                         <!-- 请求参数 -->
                         <div class="input-group" style="height: 230px;">
@@ -71,6 +61,7 @@
 
                         <p>说明：以字典的方式设置参数，如：{"id":1, "name":"名称"}</p>
 
+                        <!--发送按钮-->
                         <div style="float: right;margin-right: 10px;">
                             <button type="button" class="btn btn-primary" onclick="sendFun()">发送</button>
                         </div>
@@ -79,18 +70,39 @@
                             <p>返回结果：</p>
                             <textarea id="result" class="form-control" rows="10" name=textarea></textarea>
                         </div>
+
+                        <!-- 断言按钮 -->
+                        <div style="float: right;margin-right: 10px; margin-top: 20px; height: 50px;">
+                            <button type="button" class="btn btn-primary" onclick="assertFun()">断言</button>
+                        </div>
+
+                        <!--断言方法-->
+                        <div style="margin-top: 30px;">
+                            <label> 断言方法：</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="assert_type" id="include" value="include" checked> 包含
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="assert_type" id="equal" value="equal"> 相等
+                            </label>
+                        </div>
+
+                        <!--断言文本框-->
+                        <div style="margin-top: 10px;">
+                            <textarea id="assert" class="form-control" rows="10" name=textarea></textarea>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.css">
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery-jsonview/1.2.3/jquery.jsonview.js"></script>
-<link href="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/jsoneditor/5.32.5/jsoneditor.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<link rel="stylesheet" href="/static/css/jquery.jsonview.css">
+<script src="/static/js/jquery.jsonview.js"></script>
+<link href="/static/css/jsoneditor.css" rel="stylesheet">
+<script src="/static/js/jsoneditor.js"></script>
 <script type="text/javascript">
 
     //初始化JSONeditor编辑框，主要用于显示
@@ -108,41 +120,65 @@
         req_method = $('input[name="req_method"]:checked').val();
 
         // 获取请求头中的内容
-        req_header = headerEditor.get(); 
+        req_header = headerEditor.get();
 
         req_type = $('input[name="par_type"]:checked').val();
 
         // 获取请求参数中的内容
-        req_parameter = parameterEditor.get(); 
+        req_parameter = parameterEditor.get();
 
         // 用于将 JavaScript 值转换为 JSON 字符串
         let req_header_str = JSON.stringify(req_header, null, 2);
         let req_parameter_str = JSON.stringify(req_parameter, null, 2);
-        console.log("req_par", req_parameter_str);  
+        console.log("req_par", req_parameter_str);
 
         // 前端增加对url为空进行判断
-        if ( req_url === ""){
+        if (req_url === "") {
             window.alert("URL地址不能为空");
             return;
         }
         // 此种方法用户点击发送按钮后，继续保留页面中的数据
-        $.get("/case/send_req/",{
-            url:req_url,
-            method:req_method,
-            header:req_header_str,
-            par_type:req_type,
-            par_value:req_parameter_str
-        },
-        // 将接口返回的数据写入到返回结果文本框
-        function(resp){
-            console.log("resp",resp);
-            if(resp.status === 200){
-                document.querySelector("#result").value = resp.data;
-            }else{
-                window.alert(resp.message);
-            }
+        $.get("/case/send_req/", {
+                url: req_url,
+                method: req_method,
+                header: req_header_str,
+                par_type: req_type,
+                par_value: req_parameter_str
+            },
+            // 将接口返回的数据写入到返回结果文本框
+            function (resp) {
+                console.log("resp", resp);
+                if (resp.status === 200) {
+                    document.querySelector("#result").value = resp.data;
+                } else {
+                    window.alert(resp.message);
+                }
+            });
+    }
+
+    function assertFun() {
+        var result_text = $('#result').val();
+        var assert_text = $('#assert').val();
+        var assert_type = $('input[name="assert_type"]:checked').val();
+
+        if(result_text == "" || assert_text == ""){
+            window.alert("断言的结果不能为空！");
+        }
+
+        $.post("/case/assert_result/", {
+            result_text: result_text,
+            assert_text: assert_text,
+            assert_type: assert_type,
+            }, function (resp) {
+                if(resp.code == 10200){
+                    window.alert(resp.message);
+                } else {
+                    window.alert(resp.message);
+                }
         });
     }
+
+
 </script>
 
 <!-- 去掉请求参数的格式 -->
