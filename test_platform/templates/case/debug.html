@@ -149,7 +149,8 @@
             function (resp) {
                 console.log("resp", resp);
                 if (resp.status === 200) {
-                    document.querySelector("#result").value = resp.data;
+                    resp_data = 'message:'+resp.msg +'\n'+ 'status:'+resp.status+'\n'+resp.data
+                    document.querySelector("#result").value = resp_data;
                 } else {
                     window.alert(resp.message);
                 }
@@ -161,7 +162,7 @@
         var assert_text = $('#assert').val();
         var assert_type = $('input[name="assert_type"]:checked').val();
 
-        if(result_text == "" || assert_text == ""){
+        if(result_text === "" || assert_text === ""){
             window.alert("断言的结果不能为空！");
         }
 
@@ -170,15 +171,13 @@
             assert_text: assert_text,
             assert_type: assert_type,
             }, function (resp) {
-                if(resp.code == 10200){
+                if(resp.code === 10200){
                     window.alert(resp.message);
                 } else {
                     window.alert(resp.message);
                 }
         });
     }
-
-
 </script>
 
 <!-- 去掉请求参数的格式 -->

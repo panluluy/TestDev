@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e017a24c-b1f4-452a-ba51-ac0dbae4ab44" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_case/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_case/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_case/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_case/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/case/debug.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/case/debug.html" afterDir="false" />
     </list>
@@ -83,7 +81,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -96,6 +94,7 @@
       <updated>1603884900105</updated>
       <workItem from="1603951843596" duration="5425000" />
       <workItem from="1604972615701" duration="1774000" />
+      <workItem from="1605704313378" duration="1974000" />
     </task>
     <servers />
   </component>
